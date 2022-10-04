@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Blueprints</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+</head>
+<style>
+
+</style>
+<body>
+    <div>
+        <h1>BluePrints</h1>
+        <div id = header>
+            <h3>Author</h3>
+            <div class = cont >
+                <label>
+                    <input id="autname" type="text" placeholder="Autor del blueprint"/>
+                </label>
+            </div>
+            <button id = "getBPButton" onclick="App.getBlueprints()">Get blueprints</button>
+        </div>
+        <div class="canvas-container">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th id="bpname">Blueprint name</th>
+                        <th id="points">Number of points</th>
+                        <th id="Open">Open</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h3 id="total-points">Total user points:</h3>
+            <canvas id = "canva"></canvas>
+        </div>
+    </div>
+    <script src="js/apimock.js"></script>
+    <script src="js/apiclient.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
