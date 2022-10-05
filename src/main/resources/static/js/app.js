@@ -4,7 +4,9 @@
 var App = (function(){
     this.actAuthor;
     this.actBPName;
-    this.actBP;
+    var actBP;
+    var actRow;
+    this.puntosGlobales;
 
 
     var getBlueprints = function(){
@@ -28,6 +30,7 @@ var App = (function(){
         });
 
         var totalPuntos = newPbs.reduce((curr, {points}) => curr+points, 0);
+        this.puntosGlobales = totalPuntos;
         $('#total-points').text("Total user points: " + totalPuntos);
         var bodyTable = $('tbody');
         bodyTable.html('');
@@ -40,6 +43,7 @@ var App = (function(){
 
     var getUniqueBlueprint = function(bp){
         var row = bp.parentElement.parentElement;
+        actRow = row;
         var autname = $("#autname").val();
         var bpName = row.firstElementChild.innerText;
         this.actAuthor = autname;
@@ -49,7 +53,7 @@ var App = (function(){
     }
     
     var paintPoints = function(bpData){
-        this.actBP = bpData;
+        actBP = bpData;
         var canva = document.querySelector('canvas');
         var points = bpData.points;
         var quanPoints = points.length
@@ -68,11 +72,10 @@ var App = (function(){
     var newPoint = function(bp){
         if(window.PointerEvent) {
             canva.addEventListener("pointerdown", function(event){
-                console.log("entro");
                 let rect = canva.getBoundingClientRect();
                 let x = event.clientX - rect.left;
                 let y = event.clientY - rect.top;
-                var coordenadas = {"x": x, "y": y};
+                var coordenadas = {"x": x, "y": y}; 
                 var points = bp.points;
                 bp.points.push(coordenadas);
                 ctx = canva.getContext("2d");
@@ -84,7 +87,13 @@ var App = (function(){
     }
 
     var saveBP = function(){
-        apiclient.putBlueprintsByAuthor(this.actAuthor, this.actBPName, JSON.stringify(this.actBP));
+        apiclient.putBlueprintsByAuthor(this.actAuthor, this.actBPName, JSON.stringify(actBP));
+        var pointsField = actRow.firstElementChild.nextElementSibling;
+        var numPoints = pointsField.innerText;
+        var newPoints = actBP.points.length - numPoints;
+        pointsField.innerText = actBP.points.length;
+        $('#total-points').text("Total user points: " + (puntosGlobales + newPoints));
+        puntosGlobales = puntosGlobales + newPoints;
     }
         
     

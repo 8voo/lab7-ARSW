@@ -9,7 +9,7 @@ return {
 
     putBlueprintsByAuthor:function(authname,bpname,newData){
             $.ajax({type:'PUT', 
-            url:'blueprint/' + "/" + bpname + authname, 
+            url:'blueprint/'+ authname + "/" + bpname, 
             data: newData,
             contentType: "application/json"})
     },

@@ -78,6 +78,7 @@ public class BlueprintAPIController {
             Blueprint bprint = bps.getBlueprint(autor,name);
             bprint.setName(bpToSet.getName());
             bprint.setAuthor(bpToSet.getAuthor());
+            bprint.setPoints(bpToSet.getPoints());
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (BlueprintNotFoundException e) {
             return new ResponseEntity<>("No se pudo actualizar el recurso",HttpStatus.FORBIDDEN);
