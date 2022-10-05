@@ -7,8 +7,14 @@ return {
         );
     },
 
-    getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
+    putBlueprintsByAuthor:function(authname,bpname,newData){
+            $.ajax({type:'PUT', 
+            url:'blueprint/' + "/" + bpname + authname, 
+            data: newData,
+            contentType: "application/json"})
+    },
 
+    getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
         callback(
             JSON.parse($.ajax({type:'GET', url:'blueprint/' + authname + "/" + bpname, async:false}).responseText)
         );

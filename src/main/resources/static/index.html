@@ -30,20 +30,36 @@
             </div>
             <button id = "getBPButton" onclick="App.getBlueprints()">Get blueprints</button>
         </div>
-        <div class="canvas-container">
-            <table id="table">
-                <thead>
-                    <tr>
-                        <th id="bpname">Blueprint name</th>
-                        <th id="points">Number of points</th>
-                        <th id="Open">Open</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <h3 id="total-points">Total user points:</h3>
-            <canvas id = "canva"></canvas>
+        <div class="columns">
+            <div>
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th id="bpname">Blueprint name</th>
+                            <th id="points">Number of points</th>
+                            <th id="Open">Open</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            <h3 id="total-points">Total user points: </h3>
+        </div>
+            <div class = "canvas-container">
+                <div class = "button-container">
+                    <button id = "createBPButton" onclick="">Create new blueprint</button>
+                </div>
+                <div>
+                    <h3 id = "blueprint-name">Blueprint name: </h3>
+                </div>
+                <div>
+                    <canvas id = "canva" height="600" width="800"></canvas>
+                </div>
+                <div class = "button-container">
+                    <button id = "save-update" onclick="App.saveBP()">Save/Update</button>
+                    <button id = "delete" onclick="">Delete</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/apimock.js"></script>
