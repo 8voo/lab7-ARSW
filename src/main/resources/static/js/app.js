@@ -2,8 +2,8 @@
 
 
 var App = (function(){
-    this.actAuthor;
-    this.actBPName;
+    var actAuthor;
+    var actBPName;
     var actBP;
     var actRow;
     this.puntosGlobales;
@@ -11,6 +11,7 @@ var App = (function(){
 
     var getBlueprints = function(){
         var autname = $("#autname").val();
+        actAuthor = autname;
         if (autname == ""){
             alert("cagastes");
         }        
@@ -46,8 +47,8 @@ var App = (function(){
         actRow = row;
         var autname = $("#autname").val();
         var bpName = row.firstElementChild.innerText;
-        this.actAuthor = autname;
-        this.actBPName = bpName;
+        actAuthor = autname;
+        actBPName = bpName;
         $('#blueprint-name').text("Blueprint name: " + bpName);
         apimock.getBlueprintsByNameAndAuthor(autname, bpName ,paintPoints);
     }
@@ -87,7 +88,7 @@ var App = (function(){
     }
 
     var saveBP = function(){
-        apiclient.putBlueprintsByAuthor(this.actAuthor, this.actBPName, JSON.stringify(actBP));
+        apiclient.putBlueprintsByAuthor(actAuthor, actBPName, JSON.stringify(actBP));
         var pointsField = actRow.firstElementChild.nextElementSibling;
         var numPoints = pointsField.innerText;
         var newPoints = actBP.points.length - numPoints;
@@ -96,11 +97,34 @@ var App = (function(){
         puntosGlobales = puntosGlobales + newPoints;
     }
         
+    var addBP = function(){
+        var name = prompt("Digite el nombre del nuevo plano", "");
+        if(name != undefined && name != ""){
+            console.log("entro");
+            apiclient.createBP(actAuthor, name).then(() =>{
+                getBlueprints();
+            })
+            .catch(error => console.log(error));
+        }
+        
+    }
+
+    var deleteBP = function(){
+        apiclient.delete(actAuthor, actBPName).then((actBPName) =>{
+            getBlueprints();
+            var ctx = canva.getContext("2d");
+            ctx.clearRect(0, 0, canva.width, canva.height);
+            ctx.beginPath();
+            }
+        ).catch(err => console.log(err))
+    }
     
 
     return{
         getUniqueBlueprint : getUniqueBlueprint,
         getBlueprints : getBlueprints,
-        saveBP : saveBP
+        saveBP : saveBP,
+        addBP:addBP,
+        deleteBP:deleteBP
     }
 })();

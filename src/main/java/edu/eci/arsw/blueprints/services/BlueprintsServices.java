@@ -70,5 +70,9 @@ public class BlueprintsServices {
     public Blueprint filter(Blueprint bp){
         return fpp.filterBlueprint(bp);
     }
+
+    public void deleteBlueprint(String author, String bpname) {
+        bpp.deleteBlueprint(author, bpname);
+    }
     
 }
